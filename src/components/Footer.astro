@@ -1,0 +1,32 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer-content">
+    <p>Copyright &copy; {currentYear} Juan Estrada.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--color-black);
+    color: var(--color-white);
+    padding: 1rem 0;
+    z-index: 100;
+  }
+
+  .footer-content {
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+  }
+
+  .footer-content p {
+    margin: 0;
+  }
+</style>
