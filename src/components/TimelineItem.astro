@@ -1,0 +1,168 @@
+---
+interface Props {
+  title: string;
+  company: string;
+  companyImage?: string;
+  dateRange: string;
+  location: string;
+  tasks: string[];
+  isLast?: boolean;
+}
+
+const { title, company, companyImage, dateRange, location, tasks, isLast = false } = Astro.props;
+
+// Calculate duration from date range
+function calculateDuration(range: string): string {
+  const months: Record<string, number> = {
+    'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+    'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11
+  };
+
+  const parts = range.split(' - ');
+  const [startMonth, startYear] = parts[0].split(' ');
+  const endPart = parts[1];
+
+  let endDate: Date;
+  if (endPart === 'Present') {
+    endDate = new Date();
+  } else {
+    const [endMonth, endYear] = endPart.split(' ');
+    endDate = new Date(parseInt(endYear), months[endMonth]);
+  }
+
+  const startDate = new Date(parseInt(startYear), months[startMonth]);
+
+  let totalMonths = (endDate.getFullYear() - startDate.getFullYear()) * 12 + (endDate.getMonth() - startDate.getMonth());
+
+  const years = Math.floor(totalMonths / 12);
+  const remainingMonths = totalMonths % 12;
+
+  if (years === 0) {
+    return `${remainingMonths} mo${remainingMonths !== 1 ? 's' : ''}`;
+  } else if (remainingMonths === 0) {
+    return `${years} yr${years !== 1 ? 's' : ''}`;
+  } else {
+    return `${years} yr${years !== 1 ? 's' : ''} ${remainingMonths} mo${remainingMonths !== 1 ? 's' : ''}`;
+  }
+}
+
+const duration = calculateDuration(dateRange);
+---
+
+<div class:list={["timeline-item", { "is-last": isLast }]}>
+  <div class="timeline-marker">
+    {companyImage ? (
+      <img src={companyImage} alt={company} class="marker-image" />
+    ) : (
+      <div class="marker-dot"></div>
+    )}
+    {!isLast && <div class="marker-line"></div>}
+  </div>
+  <div class="timeline-content">
+    <h3 class="job-title">{title}</h3>
+    <p class="company-name">{company}</p>
+    <p class="date-range">{dateRange} <span class="duration">({duration})</span></p>
+    <p class="location">{location}</p>
+    <ul class="task-list">
+      {tasks.map((task) => (
+        <li>{task}</li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .timeline-item {
+    display: flex;
+    gap: 1.5rem;
+    position: relative;
+  }
+
+  .timeline-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .marker-dot {
+    width: 50px;
+    height: 50px;
+    background: var(--color-gray);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .marker-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    object-fit: cover;
+    border: 2px solid var(--color-black);
+  }
+
+  .marker-line {
+    width: 2px;
+    flex: 1;
+    background: var(--color-gray);
+    min-height: 100px;
+  }
+
+  .timeline-content {
+    padding-bottom: 2rem;
+  }
+
+  .job-title {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+
+  .company-name {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+
+  .date-range,
+  .location {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+  }
+
+  .duration {
+    font-style: italic;
+    color: #999;
+    margin-left: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .task-list {
+    margin-top: 0.5rem;
+    padding-left: 1rem;
+  }
+
+  .task-list li {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: #666;
+    list-style: disc;
+    margin-bottom: 0.25rem;
+  }
+
+  @media (max-width: 768px) {
+    .marker-dot {
+      width: 40px;
+      height: 40px;
+    }
+
+    .timeline-item {
+      gap: 1rem;
+    }
+  }
+</style>
