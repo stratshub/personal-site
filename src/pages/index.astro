@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TerminalCard from '../components/TerminalCard.astro';
+
+const aboutText = `Hey! I'm Juan, a full-stack developer with over 10 years of experience building web and mobile applications. I started coding when I was 15 and turned it into a career at 18. Since then, I've had the chance to work with startups and international companies alike, tackling everything from frontend interfaces to backend systems and cloud infrastructure. Along the way, I've taken on leadership roles, managing teams and driving projects from concept to delivery. These days, I'm diving deep into AI and exploring how it can be applied to solve real-world problems.`;
+---
+
+<Layout title="Me - Juan Estrada" currentPage="me">
+  <div class="home-container">
+    <div class="profile-section">
+      <img src="/img/profile-pic.png" alt="Juan Estrada" class="profile-image" />
+      <h1 class="profile-name">Juan Estrada</h1>
+    </div>
+
+    <div class="terminal-section">
+      <TerminalCard content={aboutText} />
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .home-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    min-height: 60vh;
+    padding: 2rem 0;
+  }
+
+  .profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .profile-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .profile-name {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: normal;
+  }
+
+  .terminal-section {
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 900px) {
+    .home-container {
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .profile-image {
+      width: 180px;
+      height: 180px;
+    }
+  }
+</style>
