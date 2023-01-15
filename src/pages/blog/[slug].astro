@@ -1,0 +1,1158 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+  const posts = [
+    {
+      slug: 'vue3-composition-api',
+      title: 'Understanding Vue 3 Composition API: A Practical Guide',
+      date: 'Mar 15 2024',
+      image: '/img/blog/vue3-composition-api.svg',
+      content: `The Composition API is one of the most significant features introduced in Vue 3. It provides a more flexible and powerful way to organize component logic, especially for complex components. Unlike the Options API, it allows you to group related code together, making your components more readable and maintainable.`,
+      sections: [
+        {
+          title: 'Basic Setup with ref and reactive',
+          content: `The two main ways to create reactive state in the Composition API are ref() for primitive values and reactive() for objects:`,
+          code: `import { ref, reactive } from 'vue'
+
+export default {
+  setup() {
+    // ref for primitives
+    const count = ref(0)
+
+    // reactive for objects
+    const user = reactive({
+      name: 'Juan',
+      email: 'juan@example.com'
+    })
+
+    function increment() {
+      count.value++ // Note: .value is needed for ref
+    }
+
+    return { count, user, increment }
+  }
+}`,
+          language: 'javascript',
+        },
+        {
+          title: 'Composables: Reusable Logic',
+          content: `One of the biggest advantages of the Composition API is the ability to extract and reuse logic across components using composables:`,
+          code: `// useCounter.js
+import { ref } from 'vue'
+
+export function useCounter(initialValue = 0) {
+  const count = ref(initialValue)
+
+  function increment() {
+    count.value++
+  }
+
+  function decrement() {
+    count.value--
+  }
+
+  return { count, increment, decrement }
+}
+
+// In your component
+import { useCounter } from './useCounter'
+
+export default {
+  setup() {
+    const { count, increment, decrement } = useCounter(10)
+    return { count, increment, decrement }
+  }
+}`,
+          language: 'javascript',
+        },
+        {
+          title: 'Conclusion',
+          content: `The Composition API gives you more control over how you structure your component logic. It's particularly useful when building large applications where code organization and reusability are critical. Start small by converting a few components and you'll quickly see the benefits.`,
+        },
+      ],
+    },
+    {
+      slug: 'graphql-subscriptions-apollo',
+      title: 'GraphQL Subscriptions: Real-time Data with Apollo Server',
+      date: 'Nov 08 2023',
+      image: '/img/blog/graphql-subscriptions-apollo.svg',
+      content: `GraphQL subscriptions enable real-time updates in your applications. Unlike queries and mutations, subscriptions maintain an active connection to your server, pushing updates whenever data changes. Here's how to set them up with Apollo Server.`,
+      sections: [
+        {
+          title: 'Setting Up the Server',
+          content: `First, configure Apollo Server with WebSocket support for subscriptions:`,
+          code: `import { ApolloServer } from '@apollo/server'
+import { expressMiddleware } from '@apollo/server/express4'
+import { createServer } from 'http'
+import { WebSocketServer } from 'ws'
+import { useServer } from 'graphql-ws/lib/use/ws'
+
+const httpServer = createServer(app)
+
+const wsServer = new WebSocketServer({
+  server: httpServer,
+  path: '/graphql',
+})
+
+const serverCleanup = useServer({ schema }, wsServer)
+
+const server = new ApolloServer({
+  schema,
+  plugins: [
+    {
+      async serverWillStart() {
+        return {
+          async drainServer() {
+            await serverCleanup.dispose()
+          },
+        }
+      },
+    },
+  ],
+})`,
+          language: 'javascript',
+        },
+        {
+          title: 'Defining a Subscription',
+          content: `Create a subscription type in your schema and implement the resolver using PubSub:`,
+          code: `import { PubSub } from 'graphql-subscriptions'
+
+const pubsub = new PubSub()
+const MESSAGE_ADDED = 'MESSAGE_ADDED'
+
+const typeDefs = \`
+  type Message {
+    id: ID!
+    content: String!
+    user: String!
+  }
+
+  type Subscription {
+    messageAdded: Message!
+  }
+
+  type Mutation {
+    addMessage(content: String!, user: String!): Message!
+  }
+\`
+
+const resolvers = {
+  Subscription: {
+    messageAdded: {
+      subscribe: () => pubsub.asyncIterator([MESSAGE_ADDED]),
+    },
+  },
+  Mutation: {
+    addMessage: (_, { content, user }) => {
+      const message = { id: Date.now(), content, user }
+      pubsub.publish(MESSAGE_ADDED, { messageAdded: message })
+      return message
+    },
+  },
+}`,
+          language: 'javascript',
+        },
+      ],
+    },
+    {
+      slug: 'dart-extensions',
+      title: 'Unlocking New Possibilities with Dart Extensions',
+      date: 'Jan 17 2023',
+      image: '/img/blog/dart-extensions.svg',
+      content: `In the world of programming languages, staying versatile and adaptive is crucial for developers. As the demand for web and mobile applications continues to soar, programmers seek tools and features that enhance their coding experience and efficiency. Dart, Google's open-source programming language, has been gaining traction in the web and mobile app development community due to its ease of use, performance, and support for both client-side and server-side development. One of the recent additions to Dart that has garnered attention is "Dart Extensions."`,
+      sections: [
+        {
+          title: 'How to Declare Dart Extensions?',
+          content: `Declaring a Dart Extension is straightforward and follows a simple syntax. To create an extension, you'll need to follow these steps:
+
+- Define the extension using the extension keyword.
+- Specify the name of the extension, followed by the on keyword and the class you want to extend.
+- Implement the extension by adding the desired methods or getters/setters.
+
+Let's see an example of how to create a Dart Extension that adds a new method to the built-in String class:`,
+          code: `// Define the extension
+extension StringExtension on String {
+  // New method to capitalize the first letter of a string
+  String capitalizeFirstLetter() {
+    if (this.isEmpty) return this;
+    return this[0].toUpperCase() + this.substring(1);
+  }
+}
+
+// Usage
+void main() {
+  String greeting = "hello, world!";
+  String capitalizedGreeting = greeting.capitalizeFirstLetter();
+  print(capitalizedGreeting); // Output: "Hello, world!"
+}`,
+          language: 'dart',
+        },
+        {
+          title: 'Breaking Down the Example',
+          content: `In this example, we declare a Dart Extension called StringExtension on the String class. The extension introduces a new method called capitalizeFirstLetter(), which capitalizes the first letter of a given string.
+
+The beauty of Dart Extensions is that you can declare them anywhere in your codebase, including separate files, making them easily accessible across the entire project.`,
+        },
+      ],
+    },
+    {
+      slug: 'flutter-bloc-pattern',
+      title: 'Mastering Flutter BLoC Pattern for State Management',
+      date: 'Aug 22 2022',
+      image: '/img/blog/flutter-bloc-pattern.svg',
+      content: `State management is one of the most important aspects of building Flutter applications. The BLoC (Business Logic Component) pattern has become one of the most popular approaches, providing a clean separation between business logic and UI. Let's explore how to implement it effectively.`,
+      sections: [
+        {
+          title: 'Setting Up BLoC',
+          content: `First, add the flutter_bloc package to your pubspec.yaml and create a simple counter BLoC:`,
+          code: `// counter_event.dart
+abstract class CounterEvent {}
+class IncrementEvent extends CounterEvent {}
+class DecrementEvent extends CounterEvent {}
+
+// counter_state.dart
+class CounterState {
+  final int count;
+  CounterState(this.count);
+}
+
+// counter_bloc.dart
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class CounterBloc extends Bloc<CounterEvent, CounterState> {
+  CounterBloc() : super(CounterState(0)) {
+    on<IncrementEvent>((event, emit) {
+      emit(CounterState(state.count + 1));
+    });
+
+    on<DecrementEvent>((event, emit) {
+      emit(CounterState(state.count - 1));
+    });
+  }
+}`,
+          language: 'dart',
+        },
+        {
+          title: 'Using BLoC in Widgets',
+          content: `Now let's connect the BLoC to our UI using BlocProvider and BlocBuilder:`,
+          code: `class CounterPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => CounterBloc(),
+      child: CounterView(),
+    );
+  }
+}
+
+class CounterView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: BlocBuilder<CounterBloc, CounterState>(
+          builder: (context, state) {
+            return Text('Count: \${state.count}');
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.read<CounterBloc>().add(IncrementEvent());
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}`,
+          language: 'dart',
+        },
+        {
+          title: 'Conclusion',
+          content: `The BLoC pattern provides a scalable and testable architecture for Flutter apps. By separating business logic from UI, your code becomes easier to maintain and test. Start with simple use cases and gradually apply it to more complex features.`,
+        },
+      ],
+    },
+    {
+      slug: 'socketio-redis-realtime',
+      title: 'Real-time Communication with Socket.io and Redis',
+      date: 'Mar 14 2022',
+      image: '/img/blog/socketio-redis-realtime.svg',
+      content: `Building scalable real-time applications requires more than just WebSockets. When you have multiple server instances, you need a way to share messages between them. Redis Pub/Sub combined with Socket.io solves this elegantly.`,
+      sections: [
+        {
+          title: 'Why Redis with Socket.io?',
+          content: `When running multiple Node.js instances behind a load balancer, a user connected to Server A won't receive messages emitted from Server B. Redis acts as a message broker between all instances.`,
+        },
+        {
+          title: 'Implementation',
+          code: `import { Server } from 'socket.io'
+import { createAdapter } from '@socket.io/redis-adapter'
+import { createClient } from 'redis'
+
+const io = new Server(server, {
+  cors: { origin: '*' }
+})
+
+// Create Redis clients
+const pubClient = createClient({ url: 'redis://localhost:6379' })
+const subClient = pubClient.duplicate()
+
+await Promise.all([pubClient.connect(), subClient.connect()])
+
+// Use Redis adapter
+io.adapter(createAdapter(pubClient, subClient))
+
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id)
+
+  socket.on('join-room', (room) => {
+    socket.join(room)
+  })
+
+  socket.on('message', (data) => {
+    // This will work across all server instances!
+    io.to(data.room).emit('message', data)
+  })
+})`,
+          language: 'javascript',
+        },
+        {
+          title: 'Key Benefits',
+          content: `- Messages are shared across all server instances
+- Horizontal scaling becomes straightforward
+- Redis handles the pub/sub complexity for you
+- Works seamlessly with existing Socket.io code`,
+        },
+      ],
+    },
+    {
+      slug: 'mongodb-aggregation-tips',
+      title: '5 MongoDB Aggregation Pipeline Tips',
+      date: 'Feb 28 2021',
+      image: '/img/blog/mongodb-aggregation-tips.svg',
+      content: `The MongoDB aggregation pipeline is powerful but can be tricky. Here are five tips I've learned from building production applications.`,
+      sections: [
+        {
+          title: '1. Use $match Early',
+          content: `Always filter documents as early as possible in the pipeline. This reduces the data processed by subsequent stages.`,
+          code: `// Good - filter first
+db.orders.aggregate([
+  { $match: { status: 'completed', date: { $gte: startDate } } },
+  { $group: { _id: '$customerId', total: { $sum: '$amount' } } }
+])
+
+// Bad - grouping all documents first
+db.orders.aggregate([
+  { $group: { _id: '$customerId', total: { $sum: '$amount' } } },
+  { $match: { total: { $gte: 1000 } } }
+])`,
+          language: 'javascript',
+        },
+        {
+          title: '2. Use $project to Reduce Document Size',
+          content: `Only carry forward the fields you need:`,
+          code: `db.users.aggregate([
+  { $match: { active: true } },
+  { $project: { name: 1, email: 1, _id: 0 } },
+  { $sort: { name: 1 } }
+])`,
+          language: 'javascript',
+        },
+        {
+          title: '3. $lookup with Pipeline for Complex Joins',
+          content: `Use pipeline in $lookup for filtered joins:`,
+          code: `db.orders.aggregate([
+  {
+    $lookup: {
+      from: 'products',
+      let: { productIds: '$items.productId' },
+      pipeline: [
+        { $match: { $expr: { $in: ['$_id', '$$productIds'] } } },
+        { $project: { name: 1, price: 1 } }
+      ],
+      as: 'productDetails'
+    }
+  }
+])`,
+          language: 'javascript',
+        },
+        {
+          title: '4. $facet for Multiple Aggregations',
+          content: `Run multiple pipelines in a single query:`,
+          code: `db.products.aggregate([
+  {
+    $facet: {
+      totalCount: [{ $count: 'count' }],
+      categories: [{ $group: { _id: '$category', count: { $sum: 1 } } }],
+      priceRange: [
+        { $group: { _id: null, min: { $min: '$price' }, max: { $max: '$price' } } }
+      ]
+    }
+  }
+])`,
+          language: 'javascript',
+        },
+        {
+          title: '5. Create Indexes for Aggregation',
+          content: `Ensure indexes exist for fields used in $match and $sort stages. Check with explain():`,
+          code: `db.orders.aggregate([
+  { $match: { customerId: ObjectId('...') } },
+  { $sort: { date: -1 } }
+]).explain('executionStats')`,
+          language: 'javascript',
+        },
+      ],
+    },
+    {
+      slug: 'exploring-goa',
+      title: 'Exploring Goa in Golang: A Paradigm Shift in Web Development',
+      date: 'May 10 2020',
+      image: '/img/blog/exploring-goa.svg',
+      content: `Goa, the elegant Golang framework, is taking the web development community by storm with its simplicity, efficiency, and scalability. Leveraging Goa's intuitive design and unique approach to RESTful APIs, developers can create robust, maintainable, and high-performing applications in no time. In this blog, we'll dive into the world of Goa, showcasing its distinctive features through specific examples.`,
+      sections: [
+        {
+          title: 'Setting up a Goa Project',
+          content: `To start building with Goa, install the Goa tool by running the following command:`,
+          code: `go get github.com/goadesign/goa/v3`,
+          language: 'bash',
+        },
+        {
+          title: 'Defining the API',
+          content: `Let's define a simple API to manage users. In your project's design folder, create a file called user.api.go. Add the following code to define the API:`,
+          code: `package design
+
+import (
+  . "goa.design/goa/v3/dsl"
+)
+
+var _ = API("user", func() {
+  Title("User Service")
+  Description("Service for managing users")
+  Server("user", func() {
+    Host("localhost", func() {
+      URI("http://localhost:8080")
+    })
+  })
+})
+
+var _ = Service("user", func() {
+  Description("The user service manages user data")
+  Method("create", func() {
+    Payload(func() {
+      Field(1, "name", String, "User name", func() {
+        Example("John Doe")
+      })
+      Required("name")
+    })
+    Result(Empty)
+    HTTP(func() {
+      POST("/users")
+      Response(StatusCreated)
+    })
+  })
+})`,
+          language: 'go',
+        },
+        {
+          title: 'Conclusion',
+          content: `Goa is a game-changer in the world of Golang web development. Its unique approach to API design, coupled with its easy-to-use tools, simplifies the process of building robust and scalable applications. By leveraging the power of Goa's code generation and implementing the controllers, developers can focus on building core functionalities without getting bogged down in repetitive tasks. So, why not embrace the paradigm shift and embark on your journey with Goa in Golang for more efficient web development!`,
+        },
+      ],
+    },
+    {
+      slug: 'docker-for-developers',
+      title: 'Docker for Developers: From Zero to Production',
+      date: 'Sep 18 2019',
+      image: '/img/blog/docker-for-developers.svg',
+      content: `Docker changed how we develop and deploy applications. No more "it works on my machine" problems. This guide covers the essentials every developer should know.`,
+      sections: [
+        {
+          title: 'Your First Dockerfile',
+          content: `A Dockerfile is a recipe for building your container image:`,
+          code: `FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy package files first (better caching)
+COPY package*.json ./
+RUN npm ci --only=production
+
+# Copy source code
+COPY . .
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]`,
+          language: 'bash',
+        },
+        {
+          title: 'Docker Compose for Development',
+          content: `Use docker-compose.yml to run multiple services together:`,
+          code: `version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=db
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: myapp
+    volumes:
+      - db_data:/var/lib/mysql
+
+  redis:
+    image: redis:alpine
+
+volumes:
+  db_data:`,
+          language: 'yaml',
+        },
+        {
+          title: 'Useful Commands',
+          content: `Commands you'll use daily:`,
+          code: `# Build and run
+docker-compose up --build
+
+# Run in background
+docker-compose up -d
+
+# View logs
+docker-compose logs -f app
+
+# Execute command in container
+docker-compose exec app sh
+
+# Stop everything
+docker-compose down
+
+# Clean up unused images
+docker system prune -a`,
+          language: 'bash',
+        },
+      ],
+    },
+    {
+      slug: 'laravel-api-best-practices',
+      title: 'Building RESTful APIs with Laravel: Best Practices',
+      date: 'Jul 05 2018',
+      image: '/img/blog/laravel-api-best-practices.svg',
+      content: `Laravel makes building APIs straightforward, but following best practices ensures your API is secure, maintainable, and performant. Here are some patterns I've found useful when building production-ready APIs.`,
+      sections: [
+        {
+          title: 'Use API Resources for Responses',
+          content: `API Resources give you control over how your models are transformed into JSON responses:`,
+          code: `// app/Http/Resources/UserResource.php
+class UserResource extends JsonResource
+{
+    public function toArray($request)
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'email' => $this->email,
+            'created_at' => $this->created_at->toISOString(),
+        ];
+    }
+}
+
+// In your controller
+public function show(User $user)
+{
+    return new UserResource($user);
+}
+
+public function index()
+{
+    return UserResource::collection(User::paginate());
+}`,
+          language: 'php',
+        },
+        {
+          title: 'Validate with Form Requests',
+          content: `Keep your controllers clean by moving validation logic to Form Request classes:`,
+          code: `// app/Http/Requests/StoreUserRequest.php
+class StoreUserRequest extends FormRequest
+{
+    public function rules()
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8|confirmed',
+        ];
+    }
+}
+
+// In your controller
+public function store(StoreUserRequest $request)
+{
+    $user = User::create($request->validated());
+    return new UserResource($user);
+}`,
+          language: 'php',
+        },
+        {
+          title: 'Conclusion',
+          content: `Following these patterns keeps your Laravel API code organized and maintainable. Use Resources for consistent responses, Form Requests for validation, and always version your API endpoints. Your future self will thank you.`,
+        },
+      ],
+    },
+    {
+      slug: 'aws-s3-tips',
+      title: 'AWS S3: Tips for Efficient File Storage',
+      date: 'Jan 22 2018',
+      image: '/img/blog/aws-s3-tips.svg',
+      content: `S3 is more than just file storage. Used correctly, it can significantly reduce costs and improve performance. Here are practical tips from production experience.`,
+      sections: [
+        {
+          title: 'Use Presigned URLs for Uploads',
+          content: `Let clients upload directly to S3 instead of routing through your server:`,
+          code: `const AWS = require('aws-sdk')
+const s3 = new AWS.S3()
+
+async function getUploadUrl(filename, contentType) {
+  const params = {
+    Bucket: 'my-bucket',
+    Key: \`uploads/\${Date.now()}-\${filename}\`,
+    ContentType: contentType,
+    Expires: 300 // URL valid for 5 minutes
+  }
+
+  return s3.getSignedUrlPromise('putObject', params)
+}
+
+// Client can now upload directly to the returned URL`,
+          language: 'javascript',
+        },
+        {
+          title: 'Set Lifecycle Rules',
+          content: `Automatically move or delete old files to save costs. In AWS Console or via CLI:`,
+          code: `{
+  "Rules": [
+    {
+      "ID": "MoveToGlacier",
+      "Status": "Enabled",
+      "Filter": { "Prefix": "archives/" },
+      "Transitions": [
+        {
+          "Days": 90,
+          "StorageClass": "GLACIER"
+        }
+      ]
+    },
+    {
+      "ID": "DeleteOldLogs",
+      "Status": "Enabled",
+      "Filter": { "Prefix": "logs/" },
+      "Expiration": { "Days": 30 }
+    }
+  ]
+}`,
+          language: 'javascript',
+        },
+        {
+          title: 'Quick Tips',
+          content: `- Use CloudFront in front of S3 for faster global access
+- Enable versioning for important buckets
+- Set proper CORS configuration for web uploads
+- Use server-side encryption (SSE-S3) for sensitive data
+- Consider S3 Transfer Acceleration for large file uploads from distant locations`,
+        },
+      ],
+    },
+    {
+      slug: 'unity-ar-basics',
+      title: 'Getting Started with Augmented Reality in Unity',
+      date: 'Oct 12 2016',
+      image: '/img/blog/unity-ar-basics.svg',
+      content: `Augmented Reality opens up exciting possibilities for interactive experiences. With Unity and Vuforia, you can create AR applications that overlay digital content onto the real world. Let's walk through the basics of setting up your first AR project.`,
+      sections: [
+        {
+          title: 'Setting Up Vuforia in Unity',
+          content: `First, import Vuforia into your Unity project and configure it:
+
+- Download Vuforia from the Unity Asset Store
+- Create a Vuforia developer account and get a license key
+- Add the license key to your Vuforia configuration
+- Create an Image Target in the Vuforia Target Manager`,
+        },
+        {
+          title: 'Creating Your First AR Scene',
+          content: `Replace the Main Camera with an AR Camera and add an Image Target:`,
+          code: `// Script to handle when target is found/lost
+using UnityEngine;
+using Vuforia;
+
+public class TargetHandler : MonoBehaviour, ITrackableEventHandler
+{
+    private TrackableBehaviour trackableBehaviour;
+
+    void Start()
+    {
+        trackableBehaviour = GetComponent<TrackableBehaviour>();
+        if (trackableBehaviour)
+        {
+            trackableBehaviour.RegisterTrackableEventHandler(this);
+        }
+    }
+
+    public void OnTrackableStateChanged(
+        TrackableBehaviour.Status previousStatus,
+        TrackableBehaviour.Status newStatus)
+    {
+        if (newStatus == TrackableBehaviour.Status.DETECTED ||
+            newStatus == TrackableBehaviour.Status.TRACKED)
+        {
+            OnTrackingFound();
+        }
+        else
+        {
+            OnTrackingLost();
+        }
+    }
+
+    private void OnTrackingFound()
+    {
+        Debug.Log("Target Found!");
+        // Show your 3D content here
+    }
+
+    private void OnTrackingLost()
+    {
+        Debug.Log("Target Lost!");
+        // Hide your 3D content here
+    }
+}`,
+          language: 'csharp',
+        },
+        {
+          title: 'Conclusion',
+          content: `AR development with Unity and Vuforia is accessible even for beginners. Start with simple image targets and 3D models, then gradually explore more advanced features like ground plane detection and model targets. The key is to experiment and iterate.`,
+        },
+      ],
+    },
+    {
+      slug: 'android-bluetooth-beacons',
+      title: 'Indoor Positioning with Bluetooth Beacons on Android',
+      date: 'Nov 20 2015',
+      image: '/img/blog/android-bluetooth-beacons.svg',
+      content: `Bluetooth beacons enable location-aware experiences inside buildings where GPS doesn't work. They're small devices that broadcast signals your app can detect to determine proximity. Here's how to get started with beacon detection on Android.`,
+      sections: [
+        {
+          title: 'Setting Up Beacon Detection',
+          content: `Add the AltBeacon library to your project and configure the necessary permissions:`,
+          code: `// build.gradle
+dependencies {
+    implementation 'org.altbeacon:android-beacon-library:2.+'
+}
+
+// AndroidManifest.xml permissions
+<uses-permission android:name="android.permission.BLUETOOTH"/>
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>`,
+          language: 'java',
+        },
+        {
+          title: 'Scanning for Beacons',
+          content: `Create a BeaconManager and start scanning for nearby beacons:`,
+          code: `public class MainActivity extends AppCompatActivity
+    implements BeaconConsumer {
+
+    private BeaconManager beaconManager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        beaconManager = BeaconManager.getInstanceForApplication(this);
+        // Set the beacon layout for iBeacon
+        beaconManager.getBeaconParsers().add(new BeaconParser()
+            .setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
+        beaconManager.bind(this);
+    }
+
+    @Override
+    public void onBeaconServiceConnect() {
+        beaconManager.addRangeNotifier((beacons, region) -> {
+            for (Beacon beacon : beacons) {
+                Log.d("Beacon", "UUID: " + beacon.getId1() +
+                    " Distance: " + beacon.getDistance() + "m");
+            }
+        });
+
+        try {
+            beaconManager.startRangingBeaconsInRegion(
+                new Region("myRegion", null, null, null));
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+}`,
+          language: 'java',
+        },
+        {
+          title: 'Conclusion',
+          content: `Bluetooth beacons are a powerful tool for creating indoor positioning systems. With the distance estimates from multiple beacons, you can implement trilateration to determine precise user location. Start with simple proximity detection and expand from there.`,
+        },
+      ],
+    },
+  ];
+
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+---
+
+<Layout title={`Blog/${post.title} - Juan Estrada`} currentPage="blog" mobileTitle={`Blog/${post.title}`}>
+  <article class="article">
+    <header class="article-header">
+      <h1 class="article-title">
+        <a href="/blog" class="breadcrumb">Blog</a>/{post.title}
+      </h1>
+      <time class="article-date">{post.date}</time>
+    </header>
+
+    <div class="article-image">
+      {post.image ? (
+        <img src={post.image} alt={post.title} />
+      ) : (
+        <div class="image-placeholder"></div>
+      )}
+    </div>
+
+    <div class="article-content">
+      <p>{post.content}</p>
+
+      {post.sections?.map((section: any) => (
+        <div class="section">
+          <h2>{section.title}</h2>
+          <p>{section.content}</p>
+          {section.code && (
+            <div class="code-block-wrapper">
+              <pre class="code-block"><code data-language={section.language || 'text'}>{section.code}</code></pre>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </article>
+</Layout>
+
+<script>
+  let copyButtonLabel = "Copy";
+  let codeBlocks = Array.from(document.querySelectorAll("pre.code-block"));
+
+  // Basic syntax highlighting using token-based approach
+  function highlightCode(code: string, language: string): string {
+    const keywords: Record<string, string[]> = {
+      dart: ['extension', 'on', 'if', 'return', 'this', 'void', 'main', 'class', 'var', 'final', 'const', 'bool', 'int', 'double', 'true', 'false', 'null', 'new', 'import', 'export', 'async', 'await', 'abstract', 'extends', 'implements', 'with', 'super', 'static', 'get', 'set'],
+      go: ['package', 'import', 'func', 'var', 'const', 'type', 'struct', 'interface', 'map', 'chan', 'go', 'defer', 'return', 'if', 'else', 'for', 'range', 'switch', 'case', 'default', 'break', 'continue', 'fallthrough', 'select', 'nil', 'true', 'false'],
+      bash: ['go', 'get', 'npm', 'install', 'run', 'cd', 'mkdir', 'rm', 'cp', 'mv', 'echo', 'export', 'sudo', 'apt', 'yum', 'brew', 'pip', 'yarn', 'docker', 'git', 'curl', 'wget'],
+      javascript: ['function', 'const', 'let', 'var', 'if', 'else', 'return', 'async', 'await', 'import', 'export', 'from', 'class', 'new', 'this', 'true', 'false', 'null', 'undefined', 'try', 'catch', 'throw', 'finally', 'extends', 'static', 'get', 'set', 'default'],
+      java: ['public', 'private', 'protected', 'class', 'interface', 'extends', 'implements', 'static', 'final', 'void', 'return', 'if', 'else', 'for', 'while', 'do', 'switch', 'case', 'break', 'continue', 'default', 'try', 'catch', 'finally', 'throw', 'throws', 'new', 'this', 'super', 'import', 'package', 'true', 'false', 'null', 'instanceof', 'abstract', 'synchronized', 'volatile', 'transient', 'native', 'enum', 'assert'],
+      php: ['function', 'class', 'public', 'private', 'protected', 'static', 'final', 'abstract', 'interface', 'trait', 'extends', 'implements', 'use', 'namespace', 'return', 'if', 'else', 'elseif', 'for', 'foreach', 'while', 'do', 'switch', 'case', 'break', 'continue', 'default', 'try', 'catch', 'finally', 'throw', 'new', 'true', 'false', 'null', 'array', 'echo', 'print', 'require', 'include', 'require_once', 'include_once', 'as', 'const'],
+      csharp: ['public', 'private', 'protected', 'internal', 'class', 'interface', 'struct', 'enum', 'delegate', 'event', 'static', 'readonly', 'const', 'virtual', 'override', 'abstract', 'sealed', 'partial', 'void', 'return', 'if', 'else', 'for', 'foreach', 'while', 'do', 'switch', 'case', 'break', 'continue', 'default', 'try', 'catch', 'finally', 'throw', 'new', 'this', 'base', 'using', 'namespace', 'true', 'false', 'null', 'async', 'await', 'get', 'set', 'var', 'out', 'ref', 'in'],
+      sql: ['SELECT', 'FROM', 'WHERE', 'INSERT', 'INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE', 'CREATE', 'TABLE', 'ALTER', 'DROP', 'INDEX', 'JOIN', 'LEFT', 'RIGHT', 'INNER', 'OUTER', 'ON', 'AND', 'OR', 'NOT', 'NULL', 'IS', 'IN', 'LIKE', 'ORDER', 'BY', 'GROUP', 'HAVING', 'LIMIT', 'OFFSET', 'AS', 'DISTINCT', 'COUNT', 'SUM', 'AVG', 'MAX', 'MIN', 'PRIMARY', 'KEY', 'FOREIGN', 'REFERENCES', 'CASCADE', 'CONSTRAINT', 'DEFAULT', 'AUTO_INCREMENT'],
+      yaml: ['true', 'false', 'null', 'yes', 'no'],
+    };
+
+    const types: Record<string, string[]> = {
+      dart: ['String', 'int', 'double', 'bool', 'List', 'Map', 'Set', 'Future', 'Stream', 'Widget', 'BuildContext', 'State', 'StatelessWidget', 'StatefulWidget'],
+      go: ['string', 'int', 'int8', 'int16', 'int32', 'int64', 'uint', 'float32', 'float64', 'bool', 'byte', 'rune', 'error', 'any'],
+      java: ['String', 'int', 'long', 'float', 'double', 'boolean', 'char', 'byte', 'short', 'void', 'Integer', 'Long', 'Float', 'Double', 'Boolean', 'Character', 'Byte', 'Short', 'Object', 'Class', 'List', 'ArrayList', 'Map', 'HashMap', 'Set', 'HashSet', 'Bundle', 'Intent', 'Context', 'View', 'Activity', 'Fragment', 'Log', 'Toast'],
+      php: ['string', 'int', 'float', 'bool', 'array', 'object', 'mixed', 'void', 'callable', 'iterable', 'self', 'parent'],
+      csharp: ['string', 'int', 'long', 'float', 'double', 'bool', 'char', 'byte', 'object', 'dynamic', 'var', 'void', 'List', 'Dictionary', 'IEnumerable', 'Task', 'Action', 'Func', 'GameObject', 'MonoBehaviour', 'Transform', 'Vector3', 'Quaternion', 'Debug'],
+      javascript: ['Array', 'Object', 'String', 'Number', 'Boolean', 'Promise', 'Map', 'Set', 'Date', 'RegExp', 'Error', 'JSON', 'Math', 'console'],
+    };
+
+    const langKeywords = keywords[language] || [];
+    const langTypes = types[language] || [];
+
+    let result = '';
+    let i = 0;
+
+    while (i < code.length) {
+      // Check for comments
+      if (code.slice(i, i + 2) === '//') {
+        let end = code.indexOf('\n', i);
+        if (end === -1) end = code.length;
+        result += `<span class="comment">${escapeHtml(code.slice(i, end))}</span>`;
+        i = end;
+        continue;
+      }
+
+      // Check for multi-line comments
+      if (code.slice(i, i + 2) === '/*') {
+        let end = code.indexOf('*/', i + 2);
+        if (end === -1) end = code.length;
+        else end += 2;
+        result += `<span class="comment">${escapeHtml(code.slice(i, end))}</span>`;
+        i = end;
+        continue;
+      }
+
+      // Check for strings
+      if (code[i] === '"' || code[i] === "'" || code[i] === '`') {
+        const quote = code[i];
+        let end = i + 1;
+        while (end < code.length && code[end] !== quote) {
+          if (code[end] === '\\') end++;
+          end++;
+        }
+        end++;
+        result += `<span class="string">${escapeHtml(code.slice(i, end))}</span>`;
+        i = end;
+        continue;
+      }
+
+      // Check for words (keywords, types, identifiers)
+      if (/[a-zA-Z_]/.test(code[i])) {
+        let end = i;
+        while (end < code.length && /[a-zA-Z0-9_]/.test(code[end])) end++;
+        const word = code.slice(i, end);
+
+        if (langKeywords.includes(word)) {
+          result += `<span class="keyword">${word}</span>`;
+        } else if (langTypes.includes(word)) {
+          result += `<span class="type">${word}</span>`;
+        } else if (code[end] === '(') {
+          result += `<span class="function">${word}</span>`;
+        } else {
+          result += escapeHtml(word);
+        }
+        i = end;
+        continue;
+      }
+
+      // Check for numbers
+      if (/[0-9]/.test(code[i])) {
+        let end = i;
+        while (end < code.length && /[0-9.]/.test(code[end])) end++;
+        result += `<span class="number">${code.slice(i, end)}</span>`;
+        i = end;
+        continue;
+      }
+
+      // Default: escape and add character
+      result += escapeHtml(code[i]);
+      i++;
+    }
+
+    return result;
+  }
+
+  function escapeHtml(text: string): string {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  for (let codeBlock of codeBlocks) {
+    let wrapper = codeBlock.parentElement;
+    if (!wrapper) continue;
+
+    // Apply syntax highlighting
+    let codeElement = codeBlock.querySelector("code");
+    if (codeElement) {
+      const language = codeElement.getAttribute("data-language") || "text";
+      const originalCode = codeElement.textContent || "";
+      codeElement.innerHTML = highlightCode(originalCode, language);
+    }
+
+    // Add copy button
+    let copyButton = document.createElement("button");
+    copyButton.className = "btn-copy-code";
+    copyButton.innerHTML = copyButtonLabel;
+
+    wrapper.appendChild(copyButton);
+
+    copyButton.addEventListener("click", async () => {
+      await copyCode(codeBlock, copyButton);
+    });
+  }
+
+  async function copyCode(block: any, button: any) {
+    let code = block.querySelector("code");
+    let text = code.textContent || code.innerText;
+
+    await navigator.clipboard.writeText(text);
+
+    button.innerText = "Copied!";
+
+    setTimeout(() => {
+      button.innerText = copyButtonLabel;
+    }, 1500);
+  }
+</script>
+
+<style>
+  .article {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .article-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .article-title {
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .breadcrumb {
+    text-decoration: underline;
+  }
+
+  .article-date {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .article-image {
+    margin-bottom: 2rem;
+  }
+
+  .article-image img {
+    width: 100%;
+    border-radius: 0.5rem;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    aspect-ratio: 16/10;
+    background: var(--color-gray);
+    border-radius: 0.5rem;
+  }
+
+  .article-content {
+    text-align: justify;
+  }
+
+  .article-content p {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    white-space: pre-line;
+  }
+
+  .section {
+    margin-bottom: 2rem;
+  }
+
+  .section h2 {
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .article-header {
+      display: none;
+    }
+
+    .article-content p {
+      font-size: 0.85rem;
+    }
+
+    .code-block code {
+      font-size: 0.7rem;
+    }
+  }
+</style>
+
+<style is:global>
+  @font-face {
+    font-family: "JetBrainsMono";
+    src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "JetBrainsMono";
+    src: url("/fonts/JetBrainsMono-Bold.woff2") format("woff2");
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  .code-block-wrapper {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  .code-block {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1.25rem;
+    padding-top: 2.5rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 0;
+  }
+
+  .code-block code {
+    font-family: 'JetBrainsMono', 'Courier New', Courier, monospace;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    white-space: pre;
+    color: #d4d4d4;
+  }
+
+  /* Basic syntax highlighting */
+  .code-block .keyword { color: #569cd6; }
+  .code-block .string { color: #ce9178; }
+  .code-block .comment { color: #6a9955; }
+  .code-block .function { color: #dcdcaa; }
+  .code-block .number { color: #b5cea8; }
+  .code-block .type { color: #4ec9b0; }
+
+  .btn-copy-code {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: #4a4a4a;
+    color: #fff;
+    border: none;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.7rem;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    transition: background 0.2s;
+    z-index: 10;
+  }
+
+  .btn-copy-code:hover {
+    background: #666;
+  }
+</style>
