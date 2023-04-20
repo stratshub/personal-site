@@ -1,0 +1,144 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TimelineItem from '../../components/TimelineItem.astro';
+
+const jobs = [
+  {
+    title: "Full-stack developer",
+    company: "SafeEVAC",
+    companyImage: "/img/job-safeevac-logo.svg",
+    dateRange: "Jul 2023 - Present",
+    location: "Remote",
+    tasks: [
+      "Development and maintenance of a monorepo architecture containing cloud and controller applications for emergency evacuation systems.",
+      "Building GraphQL APIs using Apollo Server with Express.js, MySQL, and Redis for real-time data management.",
+      "Creating responsive web interfaces with Vue.js 3, Pinia state management, and Bootstrap 5.",
+      "Implementing real-time communication using MQTT, WebSockets, and GraphQL subscriptions for IoT device integration.",
+      "Working with Kubernetes for container orchestration and deployment management.",
+      "Writing unit and E2E tests using Vitest and Playwright to ensure code quality.",
+    ],
+  },
+  {
+    title: "Full-stack developer",
+    company: "Kibuud",
+    companyImage: "/img/job-1-logo.png",
+    dateRange: "Oct 2021 - Jun 2023",
+    location: "Remote",
+    tasks: [
+      "Development of a mobile application for Senior Living Communities using Flutter with BLoC pattern for state management.",
+      "Building RESTful APIs with .NET 6 and Dapper ORM for efficient database operations.",
+      "Implementing real-time communication features using Socket.io with Node.js and Redis for message queuing.",
+      "Deploying and managing services on Google Cloud Platform with Kubernetes orchestration.",
+      "Task management and collaboration using GitHub Projects.",
+    ],
+  },
+  {
+    title: "Senior Lead developer",
+    company: "HCL Technologies/Flexera",
+    companyImage: "/img/job-2-logo.png",
+    dateRange: "Nov 2018 - Sep 2021",
+    location: "Remote",
+    tasks: [
+      "Development of cloud cost optimization microservices using Golang with the Goa framework, MongoDB, and AWS infrastructure.",
+      "Building policy templates using Flexera's custom policy language to automate cloud governance and identify cost-saving opportunities across AWS, GCP, Azure, and Turbonomics.",
+      "Contributing to Flexera One FinOps platform, helping enterprises gain visibility into cloud spending and optimize resource utilization.",
+      "Containerizing services with Docker for consistent deployment across environments.",
+      "Collaborating with cross-functional teams using Jira for task management and Confluence for technical documentation.",
+    ],
+  },
+  {
+    title: "Full-stack developer",
+    company: "4Nova",
+    companyImage: "/img/job-3-logo.jpeg",
+    dateRange: "Mar 2017 - Oct 2018",
+    location: "Remote",
+    tasks: [
+      "Building cross-platform mobile applications for Android and iOS using Flutter, delivering seamless user experiences with shared codebases.",
+      "Developing admin portals and content management systems with Laravel and MySQL for client data operations.",
+      "Designing and implementing responsive landing pages with HTML, CSS, and JavaScript to support marketing campaigns.",
+      "Managing cloud infrastructure on AWS including EC2 instances, S3 storage, and RDS databases.",
+      "Coordinating project workflows and sprint planning using Asana.",
+    ],
+  },
+  {
+    title: "Full-stack developer",
+    company: "Taranta Video y Comunicación",
+    companyImage: "/img/job-4-logo.jpeg",
+    dateRange: "Jun 2016 - Feb 2017",
+    location: "Onsite & Remote",
+    tasks: [
+      "Creating immersive augmented reality experiences using Unity, AR Foundation, Vuforia, and WebAR technologies for interactive marketing campaigns.",
+      "Developing cross-platform mobile applications with Flutter for both Android and iOS platforms.",
+      "Building web-based administration systems with Laravel and MySQL for content and data management.",
+      "Crafting responsive landing pages and microsites using HTML, CSS, and JavaScript.",
+      "Administering AWS infrastructure for hosting and deployment of client projects.",
+      "Managing tasks and team collaboration through Trello boards.",
+    ],
+  },
+  {
+    title: "Full-stack developer",
+    company: "Proxtopic",
+    companyImage: "/img/job-5-logo.png",
+    dateRange: "Mar 2015 - May 2016",
+    location: "Onsite & Remote",
+    tasks: [
+      "Developing native and cross-platform mobile applications using Java (Android), Flutter, and Xamarin to reach diverse user bases.",
+      "Building backend services and admin dashboards with Laravel and MySQL for data management and reporting.",
+      "Implementing indoor positioning solutions using Bluetooth beacon technology to track user movement and deliver location-based experiences.",
+      "Managing project timelines and deliverables using Asana.",
+    ],
+  },
+];
+---
+
+<Layout title="Experience/Jobs - Juan Estrada" currentPage="experience" mobileTitle="Experience/Jobs">
+  <div class="jobs-container">
+    <h1 class="page-title">
+      <a href="/experience" class="breadcrumb">Experience</a>/Jobs
+    </h1>
+
+    <div class="timeline">
+      {jobs.map((job, index) => (
+        <TimelineItem
+          title={job.title}
+          company={job.company}
+          companyImage={job.companyImage}
+          dateRange={job.dateRange}
+          location={job.location}
+          tasks={job.tasks}
+          isLast={index === jobs.length - 1}
+        />
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .jobs-container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .page-title {
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .breadcrumb {
+    text-decoration: underline;
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (max-width: 768px) {
+    .page-title {
+      display: none;
+    }
+  }
+</style>
