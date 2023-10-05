@@ -1,0 +1,76 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="laravelBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#laravelBg)"/>
+
+  <!-- API Endpoint visualization -->
+
+  <!-- Base server -->
+  <g>
+    <rect x="300" y="180" width="200" height="140" rx="12" fill="#ff2d20" opacity="0.15"/>
+    <rect x="320" y="200" width="160" height="100" rx="8" fill="#ff2d20" opacity="0.8"/>
+    <text x="355" y="235" fill="#fff" font-family="monospace" font-size="14" font-weight="bold">API</text>
+    <rect x="335" y="250" width="130" height="12" rx="3" fill="#fff" opacity="0.2"/>
+    <rect x="335" y="270" width="100" height="12" rx="3" fill="#fff" opacity="0.2"/>
+  </g>
+
+  <!-- Endpoint routes -->
+  <g>
+    <!-- GET endpoint -->
+    <rect x="550" y="100" width="180" height="50" rx="8" fill="#10b981" opacity="0.8"/>
+    <text x="570" y="130" fill="#fff" font-family="monospace" font-size="11">GET /api/users</text>
+
+    <!-- POST endpoint -->
+    <rect x="550" y="170" width="180" height="50" rx="8" fill="#3b82f6" opacity="0.8"/>
+    <text x="570" y="200" fill="#fff" font-family="monospace" font-size="11">POST /api/users</text>
+
+    <!-- PUT endpoint -->
+    <rect x="550" y="240" width="180" height="50" rx="8" fill="#f59e0b" opacity="0.8"/>
+    <text x="570" y="270" fill="#fff" font-family="monospace" font-size="11">PUT /api/users/:id</text>
+
+    <!-- DELETE endpoint -->
+    <rect x="550" y="310" width="180" height="50" rx="8" fill="#ef4444" opacity="0.8"/>
+    <text x="570" y="340" fill="#fff" font-family="monospace" font-size="11">DELETE /api/users/:id</text>
+  </g>
+
+  <!-- Connection lines -->
+  <g opacity="0.5">
+    <line x1="480" y1="230" x2="540" y2="125" stroke="#10b981" stroke-width="2"/>
+    <line x1="480" y1="250" x2="540" y2="195" stroke="#3b82f6" stroke-width="2"/>
+    <line x1="480" y1="270" x2="540" y2="265" stroke="#f59e0b" stroke-width="2"/>
+    <line x1="480" y1="290" x2="540" y2="335" stroke="#ef4444" stroke-width="2"/>
+  </g>
+
+  <!-- Request/Response flow -->
+  <g>
+    <rect x="80" y="200" width="140" height="100" rx="10" fill="#ff2d20" opacity="0.3"/>
+    <text x="110" y="235" fill="#ff2d20" font-family="monospace" font-size="11">Request</text>
+    <rect x="95" y="250" width="110" height="10" rx="2" fill="#ff2d20" opacity="0.4"/>
+    <rect x="95" y="268" width="80" height="10" rx="2" fill="#ff2d20" opacity="0.4"/>
+  </g>
+
+  <!-- Arrow from request to API -->
+  <g opacity="0.6">
+    <line x1="220" y1="250" x2="290" y2="250" stroke="#ff2d20" stroke-width="3"/>
+    <polygon points="290,250 278,243 278,257" fill="#ff2d20"/>
+  </g>
+
+  <!-- JSON Response block -->
+  <g>
+    <rect x="280" y="370" width="240" height="90" rx="8" fill="#1e293b" opacity="0.9"/>
+    <text x="300" y="395" fill="#10b981" font-family="monospace" font-size="10">{"status": "success",</text>
+    <text x="300" y="415" fill="#f59e0b" font-family="monospace" font-size="10"> "data": [...],</text>
+    <text x="300" y="435" fill="#3b82f6" font-family="monospace" font-size="10"> "meta": {...}}</text>
+  </g>
+
+  <!-- Decorative -->
+  <circle cx="720" cy="60" r="25" fill="#ff2d20" opacity="0.15"/>
+  <circle cx="60" cy="420" r="30" fill="#ff2d20" opacity="0.1"/>
+  <circle cx="750" cy="430" r="4" fill="#ff2d20" opacity="0.5"/>
+</svg>

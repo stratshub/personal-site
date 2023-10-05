@@ -1,0 +1,103 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mongoBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#1a1f25"/>
+    </linearGradient>
+    <linearGradient id="mongoGreen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00ed64"/>
+      <stop offset="100%" style="stop-color:#00684a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#mongoBg)"/>
+
+  <!-- Pipeline visualization -->
+  <!-- Stage 1: $match -->
+  <g>
+    <rect x="60" y="200" width="120" height="100" rx="10" fill="#00684a" opacity="0.8"/>
+    <text x="85" y="235" fill="#00ed64" font-family="monospace" font-size="12" font-weight="bold">$match</text>
+    <rect x="75" y="250" width="90" height="12" rx="3" fill="#00ed64" opacity="0.3"/>
+    <rect x="75" y="270" width="70" height="12" rx="3" fill="#00ed64" opacity="0.3"/>
+  </g>
+
+  <!-- Stage 2: $project -->
+  <g>
+    <rect x="220" y="200" width="120" height="100" rx="10" fill="#00684a" opacity="0.8"/>
+    <text x="240" y="235" fill="#00ed64" font-family="monospace" font-size="12" font-weight="bold">$project</text>
+    <rect x="235" y="250" width="90" height="12" rx="3" fill="#00ed64" opacity="0.3"/>
+    <rect x="235" y="270" width="60" height="12" rx="3" fill="#00ed64" opacity="0.3"/>
+  </g>
+
+  <!-- Stage 3: $group -->
+  <g>
+    <rect x="380" y="200" width="120" height="100" rx="10" fill="#00684a" opacity="0.8"/>
+    <text x="405" y="235" fill="#00ed64" font-family="monospace" font-size="12" font-weight="bold">$group</text>
+    <rect x="395" y="250" width="90" height="12" rx="3" fill="#00ed64" opacity="0.3"/>
+    <rect x="395" y="270" width="80" height="12" rx="3" fill="#00ed64" opacity="0.3"/>
+  </g>
+
+  <!-- Stage 4: $sort -->
+  <g>
+    <rect x="540" y="200" width="120" height="100" rx="10" fill="#00684a" opacity="0.8"/>
+    <text x="575" y="235" fill="#00ed64" font-family="monospace" font-size="12" font-weight="bold">$sort</text>
+    <rect x="555" y="250" width="90" height="12" rx="3" fill="#00ed64" opacity="0.3"/>
+    <rect x="555" y="270" width="50" height="12" rx="3" fill="#00ed64" opacity="0.3"/>
+  </g>
+
+  <!-- Output -->
+  <g>
+    <rect x="700" y="200" width="80" height="100" rx="10" fill="url(#mongoGreen)" opacity="0.9"/>
+    <text x="715" y="255" fill="#fff" font-family="monospace" font-size="11" font-weight="bold">Result</text>
+  </g>
+
+  <!-- Pipeline arrows -->
+  <g opacity="0.7">
+    <line x1="180" y1="250" x2="210" y2="250" stroke="#00ed64" stroke-width="3"/>
+    <polygon points="210,250 200,244 200,256" fill="#00ed64"/>
+
+    <line x1="340" y1="250" x2="370" y2="250" stroke="#00ed64" stroke-width="3"/>
+    <polygon points="370,250 360,244 360,256" fill="#00ed64"/>
+
+    <line x1="500" y1="250" x2="530" y2="250" stroke="#00ed64" stroke-width="3"/>
+    <polygon points="530,250 520,244 520,256" fill="#00ed64"/>
+
+    <line x1="660" y1="250" x2="690" y2="250" stroke="#00ed64" stroke-width="3"/>
+    <polygon points="690,250 680,244 680,256" fill="#00ed64"/>
+  </g>
+
+  <!-- Input documents -->
+  <g opacity="0.6">
+    <rect x="50" y="80" width="40" height="50" rx="5" fill="#00684a"/>
+    <rect x="100" y="80" width="40" height="50" rx="5" fill="#00684a"/>
+    <rect x="150" y="80" width="40" height="50" rx="5" fill="#00684a"/>
+    <rect x="50" y="370" width="40" height="50" rx="5" fill="#00684a"/>
+    <rect x="100" y="370" width="40" height="50" rx="5" fill="#00684a"/>
+    <rect x="150" y="370" width="40" height="50" rx="5" fill="#00684a"/>
+
+    <!-- Arrow from docs to pipeline -->
+    <path d="M120 130 Q120 165 100 200" fill="none" stroke="#00ed64" stroke-width="2" opacity="0.5"/>
+    <path d="M120 370 Q120 335 100 300" fill="none" stroke="#00ed64" stroke-width="2" opacity="0.5"/>
+  </g>
+
+  <!-- Tips indicators -->
+  <g>
+    <circle cx="120" cy="250" r="15" fill="#00ed64" opacity="0.2"/>
+    <text x="115" y="255" fill="#00ed64" font-family="sans-serif" font-size="12" font-weight="bold">1</text>
+
+    <circle cx="280" cy="250" r="15" fill="#00ed64" opacity="0.2"/>
+    <text x="275" y="255" fill="#00ed64" font-family="sans-serif" font-size="12" font-weight="bold">2</text>
+
+    <circle cx="440" cy="250" r="15" fill="#00ed64" opacity="0.2"/>
+    <text x="435" y="255" fill="#00ed64" font-family="sans-serif" font-size="12" font-weight="bold">3</text>
+
+    <circle cx="600" cy="250" r="15" fill="#00ed64" opacity="0.2"/>
+    <text x="595" y="255" fill="#00ed64" font-family="sans-serif" font-size="12" font-weight="bold">4</text>
+  </g>
+
+  <!-- Decorative -->
+  <circle cx="720" cy="80" r="25" fill="#00ed64" opacity="0.1"/>
+  <circle cx="750" cy="420" r="4" fill="#00ed64" opacity="0.5"/>
+  <circle cx="30" cy="300" r="3" fill="#00ed64" opacity="0.4"/>
+</svg>

@@ -1,0 +1,77 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="flutterBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#161b22"/>
+    </linearGradient>
+    <linearGradient id="flutterBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#02569b"/>
+      <stop offset="100%" style="stop-color:#0175c2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#flutterBg)"/>
+
+  <!-- UI Layer -->
+  <g>
+    <rect x="80" y="180" width="150" height="140" rx="12" fill="#54c5f8" opacity="0.8"/>
+    <text x="120" y="215" fill="#fff" font-family="sans-serif" font-size="14" font-weight="bold">UI</text>
+    <rect x="95" y="230" width="120" height="20" rx="4" fill="#fff" opacity="0.2"/>
+    <rect x="95" y="260" width="100" height="20" rx="4" fill="#fff" opacity="0.2"/>
+    <rect x="95" y="290" width="80" height="15" rx="3" fill="#02569b" opacity="0.5"/>
+  </g>
+
+  <!-- BLoC Layer -->
+  <g>
+    <rect x="325" y="140" width="150" height="220" rx="12" fill="url(#flutterBlue)" opacity="0.9"/>
+    <text x="370" y="175" fill="#fff" font-family="sans-serif" font-size="14" font-weight="bold">BLoC</text>
+    <rect x="340" y="195" width="120" height="25" rx="5" fill="#54c5f8" opacity="0.4"/>
+    <text x="355" y="212" fill="#fff" font-family="monospace" font-size="9">mapEventToState</text>
+    <rect x="340" y="235" width="120" height="40" rx="5" fill="#fff" opacity="0.1"/>
+    <rect x="340" y="290" width="120" height="40" rx="5" fill="#fff" opacity="0.1"/>
+  </g>
+
+  <!-- State Layer -->
+  <g>
+    <rect x="570" y="180" width="150" height="140" rx="12" fill="#01579b" opacity="0.8"/>
+    <text x="610" y="215" fill="#54c5f8" font-family="sans-serif" font-size="14" font-weight="bold">State</text>
+    <rect x="585" y="235" width="120" height="18" rx="4" fill="#54c5f8" opacity="0.3"/>
+    <rect x="585" y="260" width="100" height="18" rx="4" fill="#54c5f8" opacity="0.3"/>
+    <rect x="585" y="285" width="80" height="18" rx="4" fill="#54c5f8" opacity="0.3"/>
+  </g>
+
+  <!-- Event flow (UI -> BLoC) -->
+  <g>
+    <path d="M230 220 Q277 220 277 200 Q277 180 325 180" fill="none" stroke="#54c5f8" stroke-width="3" opacity="0.7"/>
+    <polygon points="325,180 312,173 312,187" fill="#54c5f8" opacity="0.7"/>
+    <rect x="245" y="155" width="50" height="20" rx="4" fill="#54c5f8" opacity="0.3"/>
+    <text x="252" y="169" fill="#fff" font-family="monospace" font-size="9">Event</text>
+  </g>
+
+  <!-- State flow (BLoC -> UI) -->
+  <g>
+    <path d="M325 320 Q277 320 277 340 Q277 360 230 320" fill="none" stroke="#02569b" stroke-width="3" opacity="0.7"/>
+    <polygon points="230,320 243,313 243,327" fill="#02569b" opacity="0.7"/>
+    <rect x="245" y="345" width="50" height="20" rx="4" fill="#02569b" opacity="0.3"/>
+    <text x="252" y="359" fill="#fff" font-family="monospace" font-size="9">State</text>
+  </g>
+
+  <!-- BLoC to State -->
+  <g>
+    <line x1="475" y1="250" x2="560" y2="250" stroke="#54c5f8" stroke-width="3" opacity="0.6"/>
+    <polygon points="560,250 547,243 547,257" fill="#54c5f8" opacity="0.6"/>
+  </g>
+
+  <!-- State back to BLoC (yield) -->
+  <g>
+    <path d="M570 280 Q520 300 520 320 Q520 380 400 380 Q330 380 330 360" fill="none" stroke="#01579b" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+    <text x="440" y="400" fill="#54c5f8" font-family="monospace" font-size="9" opacity="0.7">yield</text>
+  </g>
+
+  <!-- Decorative elements -->
+  <circle cx="700" cy="80" r="30" fill="#54c5f8" opacity="0.1"/>
+  <circle cx="100" cy="420" r="40" fill="#02569b" opacity="0.1"/>
+  <circle cx="750" cy="450" r="5" fill="#54c5f8" opacity="0.5"/>
+  <circle cx="50" cy="100" r="4" fill="#54c5f8" opacity="0.4"/>
+</svg>

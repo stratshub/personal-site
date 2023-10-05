@@ -1,0 +1,87 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="awsBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e293b"/>
+    </linearGradient>
+    <linearGradient id="awsOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff9900"/>
+      <stop offset="100%" style="stop-color:#c27400"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#awsBg)"/>
+
+  <!-- Cloud shape -->
+  <g opacity="0.15">
+    <ellipse cx="400" cy="150" rx="250" ry="100" fill="#ff9900"/>
+    <ellipse cx="250" cy="180" rx="100" ry="60" fill="#ff9900"/>
+    <ellipse cx="550" cy="180" rx="100" ry="60" fill="#ff9900"/>
+  </g>
+
+  <!-- S3 Bucket visualization -->
+  <g>
+    <!-- Main bucket -->
+    <path d="M300 220 L350 200 L500 200 L550 220 L550 350 L500 370 L350 370 L300 350 Z" fill="url(#awsOrange)" opacity="0.8"/>
+    <path d="M300 220 L350 240 L500 240 L550 220" fill="#c27400" opacity="0.6"/>
+    <ellipse cx="425" cy="220" rx="125" ry="20" fill="#ff9900" opacity="0.4"/>
+
+    <!-- Bucket label -->
+    <text x="380" y="290" fill="#fff" font-family="monospace" font-size="14" font-weight="bold">Bucket</text>
+  </g>
+
+  <!-- Files/Objects inside bucket -->
+  <g>
+    <rect x="340" y="260" width="40" height="50" rx="4" fill="#fff" opacity="0.3"/>
+    <rect x="345" y="265" width="30" height="8" rx="2" fill="#ff9900" opacity="0.6"/>
+
+    <rect x="395" y="260" width="40" height="50" rx="4" fill="#fff" opacity="0.3"/>
+    <rect x="400" y="265" width="30" height="8" rx="2" fill="#ff9900" opacity="0.6"/>
+
+    <rect x="450" y="260" width="40" height="50" rx="4" fill="#fff" opacity="0.3"/>
+    <rect x="455" y="265" width="30" height="8" rx="2" fill="#ff9900" opacity="0.6"/>
+  </g>
+
+  <!-- Upload arrow -->
+  <g>
+    <rect x="120" y="240" width="100" height="70" rx="8" fill="#232f3e" opacity="0.8"/>
+    <text x="135" y="280" fill="#ff9900" font-family="monospace" font-size="10">Upload</text>
+    <line x1="220" y1="275" x2="290" y2="275" stroke="#ff9900" stroke-width="3" opacity="0.7"/>
+    <polygon points="290,275 278,268 278,282" fill="#ff9900" opacity="0.7"/>
+  </g>
+
+  <!-- Download arrow -->
+  <g>
+    <rect x="600" y="240" width="100" height="70" rx="8" fill="#232f3e" opacity="0.8"/>
+    <text x="610" y="280" fill="#ff9900" font-family="monospace" font-size="10">Download</text>
+    <line x1="560" y1="275" x2="590" y2="275" stroke="#ff9900" stroke-width="3" opacity="0.7"/>
+    <polygon points="590,275 578,268 578,282" fill="#ff9900" opacity="0.7"/>
+  </g>
+
+  <!-- Lifecycle/Glacier indicator -->
+  <g>
+    <rect x="340" y="400" width="170" height="60" rx="8" fill="#3b82f6" opacity="0.3"/>
+    <text x="360" y="425" fill="#60a5fa" font-family="monospace" font-size="10">Lifecycle Rules</text>
+    <text x="370" y="445" fill="#60a5fa" font-family="monospace" font-size="9" opacity="0.7">→ Glacier</text>
+  </g>
+
+  <!-- Arrow to Glacier -->
+  <path d="M425 370 Q425 385 425 395" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,4" opacity="0.5"/>
+
+  <!-- Tips numbers -->
+  <g>
+    <circle cx="150" cy="120" r="20" fill="#ff9900" opacity="0.3"/>
+    <text x="144" y="126" fill="#ff9900" font-family="sans-serif" font-size="14" font-weight="bold">1</text>
+
+    <circle cx="650" cy="120" r="20" fill="#ff9900" opacity="0.3"/>
+    <text x="644" y="126" fill="#ff9900" font-family="sans-serif" font-size="14" font-weight="bold">2</text>
+
+    <circle cx="720" cy="380" r="20" fill="#ff9900" opacity="0.3"/>
+    <text x="714" y="386" fill="#ff9900" font-family="sans-serif" font-size="14" font-weight="bold">3</text>
+  </g>
+
+  <!-- Decorative -->
+  <circle cx="60" cy="80" r="4" fill="#ff9900" opacity="0.5"/>
+  <circle cx="750" cy="450" r="5" fill="#ff9900" opacity="0.4"/>
+</svg>

@@ -1,0 +1,87 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="dockerBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117"/>
+      <stop offset="100%" style="stop-color:#1a2332"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#dockerBg)"/>
+
+  <!-- Container ship base -->
+  <g>
+    <path d="M100 320 Q400 280 700 320 L700 380 Q400 420 100 380 Z" fill="#1d63ed" opacity="0.3"/>
+  </g>
+
+  <!-- Containers row 1 -->
+  <g>
+    <rect x="180" y="200" width="80" height="60" rx="5" fill="#1d63ed" opacity="0.9"/>
+    <rect x="190" y="210" width="60" height="8" rx="2" fill="#fff" opacity="0.3"/>
+    <rect x="190" y="225" width="40" height="6" rx="2" fill="#fff" opacity="0.2"/>
+
+    <rect x="280" y="200" width="80" height="60" rx="5" fill="#1d63ed" opacity="0.8"/>
+    <rect x="290" y="210" width="60" height="8" rx="2" fill="#fff" opacity="0.3"/>
+    <rect x="290" y="225" width="45" height="6" rx="2" fill="#fff" opacity="0.2"/>
+
+    <rect x="380" y="200" width="80" height="60" rx="5" fill="#1d63ed" opacity="0.85"/>
+    <rect x="390" y="210" width="60" height="8" rx="2" fill="#fff" opacity="0.3"/>
+    <rect x="390" y="225" width="50" height="6" rx="2" fill="#fff" opacity="0.2"/>
+
+    <rect x="480" y="200" width="80" height="60" rx="5" fill="#1d63ed" opacity="0.75"/>
+    <rect x="490" y="210" width="60" height="8" rx="2" fill="#fff" opacity="0.3"/>
+    <rect x="490" y="225" width="35" height="6" rx="2" fill="#fff" opacity="0.2"/>
+  </g>
+
+  <!-- Containers row 2 -->
+  <g>
+    <rect x="230" y="130" width="80" height="60" rx="5" fill="#0db7ed" opacity="0.9"/>
+    <rect x="240" y="140" width="60" height="8" rx="2" fill="#fff" opacity="0.3"/>
+    <rect x="240" y="155" width="45" height="6" rx="2" fill="#fff" opacity="0.2"/>
+
+    <rect x="330" y="130" width="80" height="60" rx="5" fill="#0db7ed" opacity="0.85"/>
+    <rect x="340" y="140" width="60" height="8" rx="2" fill="#fff" opacity="0.3"/>
+    <rect x="340" y="155" width="40" height="6" rx="2" fill="#fff" opacity="0.2"/>
+
+    <rect x="430" y="130" width="80" height="60" rx="5" fill="#0db7ed" opacity="0.8"/>
+    <rect x="440" y="140" width="60" height="8" rx="2" fill="#fff" opacity="0.3"/>
+    <rect x="440" y="155" width="50" height="6" rx="2" fill="#fff" opacity="0.2"/>
+  </g>
+
+  <!-- Containers row 3 (top) -->
+  <g>
+    <rect x="280" y="60" width="80" height="60" rx="5" fill="#384d54" opacity="0.9"/>
+    <rect x="290" y="70" width="60" height="8" rx="2" fill="#0db7ed" opacity="0.4"/>
+    <rect x="290" y="85" width="40" height="6" rx="2" fill="#fff" opacity="0.2"/>
+
+    <rect x="380" y="60" width="80" height="60" rx="5" fill="#384d54" opacity="0.85"/>
+    <rect x="390" y="70" width="60" height="8" rx="2" fill="#0db7ed" opacity="0.4"/>
+    <rect x="390" y="85" width="50" height="6" rx="2" fill="#fff" opacity="0.2"/>
+  </g>
+
+  <!-- Connection lines between containers -->
+  <g opacity="0.4">
+    <line x1="220" y1="260" x2="270" y2="190" stroke="#0db7ed" stroke-width="2" stroke-dasharray="4,4"/>
+    <line x1="320" y1="260" x2="370" y2="190" stroke="#0db7ed" stroke-width="2" stroke-dasharray="4,4"/>
+    <line x1="420" y1="260" x2="470" y2="190" stroke="#0db7ed" stroke-width="2" stroke-dasharray="4,4"/>
+  </g>
+
+  <!-- Orchestration arrows -->
+  <g opacity="0.6">
+    <path d="M600 100 Q650 150 600 200" fill="none" stroke="#0db7ed" stroke-width="2"/>
+    <polygon points="600,200 608,188 592,188" fill="#0db7ed"/>
+
+    <path d="M650 150 Q700 200 650 250" fill="none" stroke="#0db7ed" stroke-width="2"/>
+    <polygon points="650,250 658,238 642,238" fill="#0db7ed"/>
+  </g>
+
+  <!-- Labels -->
+  <rect x="580" y="280" width="120" height="30" rx="5" fill="#1d63ed" opacity="0.3"/>
+  <text x="605" y="300" fill="#0db7ed" font-family="monospace" font-size="11">containers</text>
+
+  <!-- Decorative elements -->
+  <circle cx="720" cy="80" r="30" fill="#0db7ed" opacity="0.1"/>
+  <circle cx="80" cy="420" r="25" fill="#1d63ed" opacity="0.15"/>
+  <circle cx="750" cy="450" r="5" fill="#0db7ed" opacity="0.5"/>
+  <circle cx="50" cy="100" r="4" fill="#0db7ed" opacity="0.4"/>
+</svg>

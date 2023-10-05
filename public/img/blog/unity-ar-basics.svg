@@ -1,0 +1,93 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="unityBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0a"/>
+      <stop offset="100%" style="stop-color:#1a1a1a"/>
+    </linearGradient>
+    <linearGradient id="arGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff"/>
+      <stop offset="100%" style="stop-color:#0066ff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#unityBg)"/>
+
+  <!-- Real world layer (base) -->
+  <g opacity="0.4">
+    <rect x="150" y="150" width="500" height="280" rx="10" fill="none" stroke="#444" stroke-width="2"/>
+    <text x="170" y="180" fill="#666" font-family="sans-serif" font-size="12">Real World</text>
+
+    <!-- Simple scene elements -->
+    <rect x="200" y="320" width="100" height="80" rx="5" fill="#333"/>
+    <rect x="350" y="280" width="80" height="120" rx="5" fill="#333"/>
+    <rect x="480" y="350" width="120" height="50" rx="5" fill="#333"/>
+  </g>
+
+  <!-- AR overlay layer -->
+  <g>
+    <rect x="180" y="180" width="440" height="220" rx="8" fill="url(#arGradient)" opacity="0.15"/>
+
+    <!-- AR scanning lines -->
+    <line x1="180" y1="230" x2="620" y2="230" stroke="#00d4ff" stroke-width="1" opacity="0.3"/>
+    <line x1="180" y1="280" x2="620" y2="280" stroke="#00d4ff" stroke-width="1" opacity="0.3"/>
+    <line x1="180" y1="330" x2="620" y2="330" stroke="#00d4ff" stroke-width="1" opacity="0.3"/>
+
+    <line x1="280" y1="180" x2="280" y2="400" stroke="#00d4ff" stroke-width="1" opacity="0.3"/>
+    <line x1="400" y1="180" x2="400" y2="400" stroke="#00d4ff" stroke-width="1" opacity="0.3"/>
+    <line x1="520" y1="180" x2="520" y2="400" stroke="#00d4ff" stroke-width="1" opacity="0.3"/>
+  </g>
+
+  <!-- AR 3D Object overlay -->
+  <g>
+    <!-- 3D Cube wireframe -->
+    <g transform="translate(350, 240)">
+      <polygon points="0,0 60,20 60,80 0,60" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.8"/>
+      <polygon points="0,0 40,-20 100,0 60,20" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.8"/>
+      <polygon points="60,20 100,0 100,60 60,80" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.8"/>
+      <line x1="0" y1="60" x2="40" y2="40" stroke="#00d4ff" stroke-width="2" opacity="0.5"/>
+      <line x1="40" y1="40" x2="100" y2="60" stroke="#00d4ff" stroke-width="2" opacity="0.5"/>
+      <line x1="40" y1="40" x2="40" y2="-20" stroke="#00d4ff" stroke-width="2" opacity="0.5"/>
+    </g>
+
+    <!-- Target marker -->
+    <g transform="translate(230, 300)">
+      <circle cx="30" cy="30" r="30" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.6"/>
+      <circle cx="30" cy="30" r="20" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.6"/>
+      <circle cx="30" cy="30" r="10" fill="none" stroke="#00d4ff" stroke-width="2" opacity="0.6"/>
+      <circle cx="30" cy="30" r="3" fill="#00d4ff" opacity="0.8"/>
+    </g>
+
+    <!-- Info panel -->
+    <g transform="translate(500, 200)">
+      <rect x="0" y="0" width="100" height="60" rx="5" fill="#00d4ff" opacity="0.2"/>
+      <rect x="10" y="10" width="80" height="10" rx="2" fill="#00d4ff" opacity="0.5"/>
+      <rect x="10" y="28" width="60" height="8" rx="2" fill="#00d4ff" opacity="0.4"/>
+      <rect x="10" y="42" width="70" height="8" rx="2" fill="#00d4ff" opacity="0.4"/>
+    </g>
+  </g>
+
+  <!-- Camera/device frame -->
+  <g>
+    <rect x="120" y="120" width="560" height="340" rx="15" fill="none" stroke="#00d4ff" stroke-width="3" opacity="0.6"/>
+
+    <!-- Camera corners -->
+    <path d="M120 150 L120 120 L150 120" fill="none" stroke="#00d4ff" stroke-width="4" opacity="0.8"/>
+    <path d="M650 120 L680 120 L680 150" fill="none" stroke="#00d4ff" stroke-width="4" opacity="0.8"/>
+    <path d="M680 430 L680 460 L650 460" fill="none" stroke="#00d4ff" stroke-width="4" opacity="0.8"/>
+    <path d="M150 460 L120 460 L120 430" fill="none" stroke="#00d4ff" stroke-width="4" opacity="0.8"/>
+
+    <!-- Recording indicator -->
+    <circle cx="160" cy="150" r="8" fill="#ff3b30" opacity="0.8"/>
+    <text x="175" y="155" fill="#fff" font-family="monospace" font-size="10" opacity="0.8">REC</text>
+  </g>
+
+  <!-- Label -->
+  <rect x="300" y="440" width="200" height="30" rx="5" fill="#00d4ff" opacity="0.2"/>
+  <text x="340" y="460" fill="#00d4ff" font-family="monospace" font-size="12">Augmented Reality</text>
+
+  <!-- Decorative -->
+  <circle cx="720" cy="80" r="20" fill="#00d4ff" opacity="0.1"/>
+  <circle cx="80" cy="400" r="15" fill="#00d4ff" opacity="0.1"/>
+  <circle cx="750" cy="450" r="4" fill="#00d4ff" opacity="0.5"/>
+</svg>

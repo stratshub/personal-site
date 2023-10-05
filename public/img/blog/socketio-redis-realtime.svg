@@ -1,0 +1,77 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="socketBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0f23"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#socketBg)"/>
+
+  <!-- Redis central node -->
+  <g>
+    <rect x="325" y="190" width="150" height="120" rx="15" fill="#dc382d" opacity="0.9"/>
+    <text x="365" y="235" fill="#fff" font-family="sans-serif" font-size="16" font-weight="bold">Redis</text>
+    <text x="350" y="260" fill="#fff" font-family="monospace" font-size="10" opacity="0.7">Pub/Sub</text>
+    <rect x="345" y="275" width="110" height="20" rx="4" fill="#fff" opacity="0.15"/>
+  </g>
+
+  <!-- Server Node 1 -->
+  <g>
+    <rect x="80" y="80" width="130" height="100" rx="12" fill="#010101" opacity="0.8" stroke="#fff" stroke-width="1" stroke-opacity="0.3"/>
+    <circle cx="145" cy="110" r="15" fill="#25c2a0" opacity="0.8"/>
+    <text x="135" y="115" fill="#fff" font-family="sans-serif" font-size="12">S1</text>
+    <text x="105" y="155" fill="#fff" font-family="monospace" font-size="9" opacity="0.7">Socket.io</text>
+  </g>
+
+  <!-- Server Node 2 -->
+  <g>
+    <rect x="590" y="80" width="130" height="100" rx="12" fill="#010101" opacity="0.8" stroke="#fff" stroke-width="1" stroke-opacity="0.3"/>
+    <circle cx="655" cy="110" r="15" fill="#25c2a0" opacity="0.8"/>
+    <text x="645" y="115" fill="#fff" font-family="sans-serif" font-size="12">S2</text>
+    <text x="615" y="155" fill="#fff" font-family="monospace" font-size="9" opacity="0.7">Socket.io</text>
+  </g>
+
+  <!-- Server Node 3 -->
+  <g>
+    <rect x="335" y="370" width="130" height="100" rx="12" fill="#010101" opacity="0.8" stroke="#fff" stroke-width="1" stroke-opacity="0.3"/>
+    <circle cx="400" cy="400" r="15" fill="#25c2a0" opacity="0.8"/>
+    <text x="390" y="405" fill="#fff" font-family="sans-serif" font-size="12">S3</text>
+    <text x="360" y="445" fill="#fff" font-family="monospace" font-size="9" opacity="0.7">Socket.io</text>
+  </g>
+
+  <!-- Client nodes -->
+  <circle cx="60" cy="250" r="20" fill="#25c2a0" opacity="0.6"/>
+  <circle cx="60" cy="320" r="20" fill="#25c2a0" opacity="0.6"/>
+  <circle cx="740" cy="250" r="20" fill="#25c2a0" opacity="0.6"/>
+  <circle cx="740" cy="320" r="20" fill="#25c2a0" opacity="0.6"/>
+  <circle cx="200" cy="430" r="20" fill="#25c2a0" opacity="0.6"/>
+  <circle cx="600" cy="430" r="20" fill="#25c2a0" opacity="0.6"/>
+
+  <!-- Connections: Servers to Redis -->
+  <line x1="210" y1="130" x2="325" y2="220" stroke="#dc382d" stroke-width="2" opacity="0.6"/>
+  <line x1="590" y1="130" x2="475" y2="220" stroke="#dc382d" stroke-width="2" opacity="0.6"/>
+  <line x1="400" y1="370" x2="400" y2="310" stroke="#dc382d" stroke-width="2" opacity="0.6"/>
+
+  <!-- Connections: Clients to Servers -->
+  <line x1="80" y1="250" x2="80" y2="180" stroke="#25c2a0" stroke-width="2" stroke-dasharray="4,4" opacity="0.5"/>
+  <line x1="80" y1="320" x2="100" y2="180" stroke="#25c2a0" stroke-width="2" stroke-dasharray="4,4" opacity="0.5"/>
+  <line x1="720" y1="250" x2="720" y2="180" stroke="#25c2a0" stroke-width="2" stroke-dasharray="4,4" opacity="0.5"/>
+  <line x1="720" y1="320" x2="700" y2="180" stroke="#25c2a0" stroke-width="2" stroke-dasharray="4,4" opacity="0.5"/>
+  <line x1="220" y1="430" x2="335" y2="420" stroke="#25c2a0" stroke-width="2" stroke-dasharray="4,4" opacity="0.5"/>
+  <line x1="580" y1="430" x2="465" y2="420" stroke="#25c2a0" stroke-width="2" stroke-dasharray="4,4" opacity="0.5"/>
+
+  <!-- Message packets -->
+  <circle cx="250" cy="180" r="5" fill="#dc382d"/>
+  <circle cx="550" cy="180" r="5" fill="#dc382d"/>
+  <circle cx="400" cy="340" r="5" fill="#dc382d"/>
+
+  <!-- Labels -->
+  <rect x="20" y="40" width="80" height="25" rx="5" fill="#25c2a0" opacity="0.3"/>
+  <text x="35" y="57" fill="#25c2a0" font-family="monospace" font-size="10">Clients</text>
+
+  <!-- Decorative -->
+  <circle cx="750" cy="60" r="4" fill="#dc382d" opacity="0.5"/>
+  <circle cx="50" cy="450" r="3" fill="#25c2a0" opacity="0.4"/>
+</svg>

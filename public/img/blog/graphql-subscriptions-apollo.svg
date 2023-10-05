@@ -1,0 +1,69 @@
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="gqlBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#171e26"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+    <linearGradient id="gqlPink" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e535ab"/>
+      <stop offset="100%" style="stop-color:#311c87"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#gqlBg)"/>
+
+  <!-- Real-time pulse waves -->
+  <g opacity="0.3">
+    <circle cx="400" cy="250" r="180" fill="none" stroke="#e535ab" stroke-width="2"/>
+    <circle cx="400" cy="250" r="140" fill="none" stroke="#e535ab" stroke-width="2"/>
+    <circle cx="400" cy="250" r="100" fill="none" stroke="#e535ab" stroke-width="2"/>
+    <circle cx="400" cy="250" r="60" fill="none" stroke="#e535ab" stroke-width="2"/>
+  </g>
+
+  <!-- Central server node -->
+  <circle cx="400" cy="250" r="40" fill="#311c87" opacity="0.9"/>
+  <circle cx="400" cy="250" r="25" fill="#e535ab" opacity="0.8"/>
+  <circle cx="400" cy="250" r="10" fill="#fff" opacity="0.9"/>
+
+  <!-- Connected client nodes with data streams -->
+  <g>
+    <!-- Client 1 - top left -->
+    <circle cx="200" cy="120" r="25" fill="#311c87" opacity="0.8"/>
+    <circle cx="200" cy="120" r="15" fill="#e535ab" opacity="0.6"/>
+    <path d="M225 135 Q300 180 375 235" fill="none" stroke="#e535ab" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
+
+    <!-- Client 2 - top right -->
+    <circle cx="600" cy="100" r="25" fill="#311c87" opacity="0.8"/>
+    <circle cx="600" cy="100" r="15" fill="#e535ab" opacity="0.6"/>
+    <path d="M575 115 Q500 170 425 235" fill="none" stroke="#e535ab" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
+
+    <!-- Client 3 - bottom left -->
+    <circle cx="150" cy="380" r="25" fill="#311c87" opacity="0.8"/>
+    <circle cx="150" cy="380" r="15" fill="#e535ab" opacity="0.6"/>
+    <path d="M175 365 Q280 310 375 265" fill="none" stroke="#e535ab" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
+
+    <!-- Client 4 - bottom right -->
+    <circle cx="650" cy="400" r="25" fill="#311c87" opacity="0.8"/>
+    <circle cx="650" cy="400" r="15" fill="#e535ab" opacity="0.6"/>
+    <path d="M625 385 Q520 320 425 265" fill="none" stroke="#e535ab" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
+  </g>
+
+  <!-- Data packets flowing -->
+  <circle cx="280" cy="175" r="6" fill="#e535ab" opacity="0.9"/>
+  <circle cx="520" cy="165" r="6" fill="#e535ab" opacity="0.9"/>
+  <circle cx="260" cy="330" r="6" fill="#e535ab" opacity="0.9"/>
+  <circle cx="540" cy="340" r="6" fill="#e535ab" opacity="0.9"/>
+
+  <!-- Subscription label blocks -->
+  <rect x="50" y="200" width="100" height="30" rx="6" fill="#311c87" opacity="0.6"/>
+  <text x="65" y="220" fill="#e535ab" font-family="monospace" font-size="10" opacity="0.9">subscribe</text>
+
+  <rect x="650" y="230" width="100" height="30" rx="6" fill="#311c87" opacity="0.6"/>
+  <text x="665" y="250" fill="#e535ab" font-family="monospace" font-size="10" opacity="0.9">real-time</text>
+
+  <!-- Decorative elements -->
+  <circle cx="720" cy="60" r="4" fill="#e535ab" opacity="0.5"/>
+  <circle cx="80" cy="450" r="5" fill="#e535ab" opacity="0.4"/>
+  <circle cx="750" cy="450" r="3" fill="#e535ab" opacity="0.6"/>
+</svg>
