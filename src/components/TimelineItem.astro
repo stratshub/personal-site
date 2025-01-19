@@ -100,6 +100,12 @@ const duration = calculateDuration(dateRange);
     flex-shrink: 0;
     object-fit: cover;
     border: 2px solid var(--color-black);
+    background: var(--bg-color);
+    transition: background-color 0.3s ease;
+  }
+
+  :global([data-theme="dark"]) .marker-image {
+    background: #fff;
   }
 
   .marker-line {
@@ -131,13 +137,13 @@ const duration = calculateDuration(dateRange);
   .location {
     font-family: var(--font-mono);
     font-size: 0.85rem;
-    color: #666;
+    color: var(--text-muted);
     margin-bottom: 0.25rem;
   }
 
   .duration {
     font-style: italic;
-    color: #999;
+    color: var(--text-muted);
     margin-left: 0.5rem;
     font-size: 0.75rem;
   }
@@ -150,7 +156,7 @@ const duration = calculateDuration(dateRange);
   .task-list li {
     font-family: var(--font-mono);
     font-size: 0.85rem;
-    color: #666;
+    color: var(--text-muted);
     list-style: disc;
     margin-bottom: 0.25rem;
   }

@@ -42,7 +42,11 @@ const { placeholder = 'Search ...' } = Astro.props;
   }
 
   .search-input::placeholder {
-    color: #666;
+    color: var(--text-muted);
+  }
+
+  .search-input {
+    color: var(--text-color);
   }
 
   .search-button {
